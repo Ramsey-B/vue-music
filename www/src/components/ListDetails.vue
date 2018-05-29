@@ -50,9 +50,6 @@
     computed: {
       activeList() {
         return this.$store.state.activeList
-      },
-      getSongs() {
-        this.songs = this.$store.state.activeList.songs
       }
     },
     methods: {
@@ -78,7 +75,6 @@
         this.initPlayer()
       },
       editList() {
-        debugger
         this.activeList.songs = this.songs
         this.$store.dispatch('editList', this.activeList)
       },

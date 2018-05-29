@@ -82,8 +82,7 @@ export default new vuex.Store({
          dispatch('getPlaylists')
        })
     },
-    editList({dispatch, commit}, list){
-      debugger
+    editList({dispatch, commit}, list){      
       server.put('/playlist/' + list._id, list)
        .then(res => {
          console.log(res)
