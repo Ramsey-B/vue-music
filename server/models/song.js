@@ -10,7 +10,7 @@ var song = new Schema({
   trackPrice: {type: String, required: true},
   previewUrl: {type: String, required: true},
   trackUrl: {type: String, required: true},
-  trackId: {type: String, required: true}
+  trackId: {type: String, required: true, unique: true}
 })
 
 var schema = new Schema({
@@ -23,5 +23,11 @@ var schema = new Schema({
     required:true
   }
 })
+
+//breaks my create new playlist functionallity
+// schema.pre('save', (next) => {
+//   this.markModified('songs')
+//   next()
+// })
 
 module.exports = mongoose.model(schemaName, schema)

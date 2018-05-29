@@ -33,12 +33,14 @@
     name: 'listDetails',
     mounted() {
       this.$store.dispatch('getPlaylist', this.$route.params.id)
+      this.songs = this.$store.state.activeList.songs
     },
     components: {
       draggable
     },
     data() {
       return {
+        songs: [],
         activeSong: {},
         isPlaying: false,
         player: null,
@@ -49,8 +51,8 @@
       activeList() {
         return this.$store.state.activeList
       },
-      songs() {
-        return this.$store.state.activeList.songs
+      getSongs() {
+        this.songs = this.$store.state.activeList.songs
       }
     },
     methods: {
@@ -76,7 +78,9 @@
         this.initPlayer()
       },
       editList() {
-        this.$store.dispatch('editList', this.songs)
+        debugger
+        this.activeList.songs = this.songs
+        this.$store.dispatch('editList', this.activeList)
       },
       togglePlay() {
         if (this.isPlaying == false) {
@@ -97,7 +101,7 @@
         var index = this.activeList.songs.findIndex(item => {
           return item.trackId == song.trackId
         })
-        this.activeList.songs.splice(index, 1)
+        this.activeList.splice(index, 1)
         this.$store.dispatch('editList', this.activeList)
       }
     }
