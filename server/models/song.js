@@ -25,9 +25,9 @@ var schema = new Schema({
 })
 
 //breaks my create new playlist functionallity
-// schema.pre('save', (next) => {
-//   this.markModified('songs')
-//   next()
-// })
+schema.pre('save', function(next) {
+  this.markModified('songs')
+  next()
+})
 
 module.exports = mongoose.model(schemaName, schema)
