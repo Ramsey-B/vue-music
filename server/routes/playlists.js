@@ -40,20 +40,20 @@ router.get('/playlist/:id', (req, res) => {
 
 //new playlist
 router.post('/new-playlist', (req, res) => {
-  Users.findById(req.session.uid)
-    .then(user => {
-      req.body.userId = user.id
-      Songs.create(req.body)
-        .then(newList => {
-          res.status(200).send(newList)
-        })
-        .catch(err => {
-          res.status(400).send({ message: "An Error occured" })
-        })
+  // Users.findById(req.session.uid)
+  //   .then(user => {
+  req.body.userId = req.session.uid
+  Songs.create(req.body)
+    .then(newList => {
+      res.status(200).send(newList)
     })
     .catch(err => {
-      res.status(401).send({ message: "Please Log in" })
+      res.status(400).send({ message: "An Error occured", err })
     })
+  // })
+  // .catch(err => {
+  //   res.status(401).send({ message: "Please Log in" })
+  // })
 })
 
 //add to playlist

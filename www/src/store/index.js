@@ -79,13 +79,14 @@ export default new vuex.Store({
     createPlaylist({dispatch, commit, state}, payload) {
       server.post('/new-playlist', payload)
        .then(res => {
+         debugger
          dispatch('getPlaylists')
        })
     },
     editList({dispatch, commit}, list){      
       server.put('/playlist/' + list._id, list)
-       .then(res => {
-         console.log(res)
+       .then(res => {    
+         commit('setActiveList', res.data)
        })
     },
     getPlaylist({dispatch, commit}, id) {

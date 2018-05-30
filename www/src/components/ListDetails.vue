@@ -97,7 +97,8 @@
         var index = this.activeList.songs.findIndex(item => {
           return item.trackId == song.trackId
         })
-        this.activeList.splice(index, 1)
+        this.activeList.songs.splice(index, 1)
+        this.songs = this.activeList.songs
         this.$store.dispatch('editList', this.activeList)
       }
     }
