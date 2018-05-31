@@ -23,6 +23,7 @@
     name: 'App',
     computed: {
       user() {
+        console.log(this.$store.state.user, 'app user')
         return this.$store.state.user
       }
   },
