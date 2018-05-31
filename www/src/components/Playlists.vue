@@ -17,9 +17,13 @@
 </template>
 
 <script>
+  import router from '../router'
   export default {
     name: 'Playlists',
     mounted() {
+      if(!this.$store.state.user){
+        router.push({name: 'Auth'})
+      }
       this.$store.dispatch('getPlaylists')
     },
     data() {

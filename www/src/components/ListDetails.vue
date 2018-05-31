@@ -28,10 +28,13 @@
 
 <script>
   import draggable from 'vuedraggable'
-
+  import router from '../router'
   export default {
     name: 'listDetails',
     mounted() {
+      if(!this.$store.state.user){
+        router.push({name: 'Auth'})
+      }
       this.$store.dispatch('getPlaylist', this.$route.params.id)
     },
     components: {
@@ -59,26 +62,33 @@
       }
     },
     methods: {
-      initPlayer() {
+      initPlayer(songs, index, cb) {
         this.player = new Howl({
-          src: this.songs[this.songsIndex].previewUrl,
+          src: songs[index].previewUrl,
           autoplay: true,
           volume: 0.5,
           html5: true,
           onend: function () {
-            this.changeSong()
-            this.initPlayer()
+            if (index < songs.length - 1) {
+                index++
+                var song = songs[index]
+                cb(song)
+              }
+            else {
+              var song = songs[0]
+                cb(song)
+            }
           }
         });
       },
       playSong(song) {
         if(this.player) {
-          this.player.pause()
+          this.player.stop()
         }
         this.isPlaying = true
         this.activeSong = song
         this.songsIndex = this.songs.findIndex(item => {return item._id == song._id})
-        this.initPlayer()
+        this.initPlayer(this.songs, this.songsIndex, this.playSong)
       },
       editList(songs) {
         this.activeList.songs = songs
@@ -91,12 +101,6 @@
         } else {
           this.isPlaying = !this.isPlaying
           this.player.pause()
-        }
-      },
-      changeSong() {
-        if (this.songsIndex < this.songs.length - 1) {
-          this.songsIndex++
-          this.activeSong = this.songs[this.songsIndex]
         }
       },
       removeSong(song) {
