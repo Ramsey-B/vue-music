@@ -33,9 +33,13 @@
 
 <script>
   import howler from 'vue-howler'
+  import router from '../router'
   export default {
     name: 'Home',
     mounted() {
+      if(!this.$store.state.user){
+        router.push({name: 'Auth'})
+      }
       this.$store.dispatch('getPlaylists')
     },
     data() {

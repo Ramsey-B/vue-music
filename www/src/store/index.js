@@ -101,6 +101,16 @@ export default new vuex.Store({
         commit('setUser', {})
         router.push('/')
        })
+    },
+    authenticate({commit, dispatch}){
+      server.get('/authenticate')
+        .then(res=>{
+          commit('setUser', res.data)
+          router.push({name: 'HelloWorld'})
+        })
+        .catch(res=>{
+          console.log(res.data)
+        })
     }
   }
 })

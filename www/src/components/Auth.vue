@@ -29,6 +29,9 @@
 <script>
   export default {
     name: 'Auth',
+    mounted() {
+      this.$store.dispatch('authenticate')
+    },
     data() {
       return {
         user: {
