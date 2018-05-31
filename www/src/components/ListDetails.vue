@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row">
-      <draggable v-model="songs" v-on:change="editList">
+      <draggable v-model="songs">
         <div class="col-12 d-flex justify-content-row" :key="song._id" v-for="song in songs">
           <button @click="playSong(song)" v-if="song._id != activeSong._id">Play</button>
           <button @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true">Pause</button>
@@ -33,14 +33,12 @@
     name: 'listDetails',
     mounted() {
       this.$store.dispatch('getPlaylist', this.$route.params.id)
-      this.songs = this.$store.state.activeList.songs
     },
     components: {
       draggable
     },
     data() {
       return {
-        songs: [],
         activeSong: {},
         isPlaying: false,
         player: null,
@@ -50,6 +48,14 @@
     computed: {
       activeList() {
         return this.$store.state.activeList
+      },
+      songs: {
+        get: function() {
+          return this.$store.state.activeList.songs
+        },
+        set: function(songs) {
+          this.editList(songs)
+        }
       }
     },
     methods: {
@@ -74,8 +80,8 @@
         this.songsIndex = this.songs.findIndex(item => {return item._id == song._id})
         this.initPlayer()
       },
-      editList() {
-        this.activeList.songs = this.songs
+      editList(songs) {
+        this.activeList.songs = songs
         this.$store.dispatch('editList', this.activeList)
       },
       togglePlay() {
