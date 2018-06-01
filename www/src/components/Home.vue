@@ -37,7 +37,7 @@
   export default {
     name: 'Home',
     mounted() {
-      if(!this.$store.state.user){
+      if(!this.$store.state.user._id){
         router.push({name: 'Auth'})
       }
       this.$store.dispatch('getPlaylists')

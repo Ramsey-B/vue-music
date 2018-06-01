@@ -14,12 +14,12 @@
     </div>
     <div class="row">
       <draggable v-model="songs">
-        <div class="col-12 d-flex justify-content-row" :key="song._id" v-for="song in songs">
-          <button @click="playSong(song)" v-if="song._id != activeSong._id">Play</button>
-          <button @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true">Pause</button>
-          <button @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false">Play</button>
+        <div class="col-12 d-flex justify-content-row text-center" :key="song._id" v-for="song in songs">
+          <a @click="playSong(song)" v-if="song._id != activeSong._id"><i class="fas fa-play"></i></a>
+          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true"><i class="fas fa-pause"></i></a>
+          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false"><i class="fas fa-play"></i></a>
           <h4>{{song.trackName}}-{{song.artistName}}</h4>
-          <button @click="removeSong(song)">Remove</button>
+          <a class="btn remove" @click="removeSong(song)"><i class="fas fa-trash-alt"></i></a>
         </div>
       </draggable>
     </div>
