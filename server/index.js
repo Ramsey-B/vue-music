@@ -4,6 +4,7 @@ var app = express()
 var cors = require('cors')
 var port = 3000
 
+//edit stuff
 var whitelist = ['http://localhost:8080'];
 var corsOptions = {
 	origin: function (origin, callback) {
