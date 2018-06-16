@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <nav class="navbar navbar-light top-header">
+    <nav class="navbar navbar-light top-header" style="background: #333399; color: white;">
       <div>
         <a class="navbar-brand" @click="home">Home</a>
         <router-link :to="{ name: 'Playlists'}" class="navbar-brand" v-if="user._id" @click="getPosts">
@@ -59,6 +59,15 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    /* The image used */
+    background-image: url("assets/forrest.jpg");
+    min-height: 500vh;
+    /* Set a specific height */ 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 </style>

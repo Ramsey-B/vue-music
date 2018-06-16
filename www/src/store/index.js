@@ -88,6 +88,9 @@ export default new vuex.Store({
          console.log(res.data)
          commit('setActiveList', res.data)
        })
+       .catch(err => {
+         console.log(err)
+       })
     },
     getPlaylist({dispatch, commit}, id) {
       server.get('/playlist/' +id) 

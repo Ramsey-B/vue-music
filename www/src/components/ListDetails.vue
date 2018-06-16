@@ -1,25 +1,27 @@
 <template>
   <div class="listDetails">
     <h2>{{activeList.title}}</h2>
-    <div class="results row" v-if="activeSong">
+    <div class="results row mt-4 d-flex justify-content-center" v-if="activeSong">
       <div class="card col-md-4 col-xs-12 songs-box">
         <a @click="togglePlay">
           <h4>{{activeSong.trackName}}</h4>
         </a>
         <h5>{{activeSong.artistName}}</h5>
         <a @click="togglePlay">
-          <img class="play-img" :src="activeSong.artworkUrl100">
+          <img class="play-img" :src="activeSong.artworkUrl100" width="200vh">
         </a>
       </div>
     </div>
-    <div class="row">
+    <div class="row d-flex justify-content-center mt-4">
       <draggable v-model="songs">
-        <div class="col-12 d-flex justify-content-row text-center" :key="song._id" v-for="song in songs">
-          <a @click="playSong(song)" v-if="song._id != activeSong._id"><i class="fas fa-play"></i></a>
-          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true"><i class="fas fa-pause"></i></a>
-          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false"><i class="fas fa-play"></i></a>
-          <h4>{{song.trackName}}-{{song.artistName}}</h4>
-          <a class="btn remove" @click="removeSong(song)"><i class="fas fa-trash-alt"></i></a>
+        <div class="col-12 d-flex justify-content-row justify-content-center songs-box" :key="song._id" v-for="song in songs">
+          <a class="play" @click="playSong(song)" v-if="song._id != activeSong._id"><i class="fas fa-play"></i></a>
+          <a class="play" @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true"><i class="fas fa-pause"></i></a>
+          <a class="play" @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false"><i class="fas fa-play"></i></a>
+          <a @click="playSong(song)" v-if="song._id != activeSong._id"><h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4></a>
+          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true"><h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4></a>
+          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false"><h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4></a>
+          <a class="btn remove play" @click="removeSong(song)"><i class="fas fa-trash-alt"></i></a>
         </div>
       </draggable>
     </div>
@@ -32,10 +34,12 @@
   export default {
     name: 'listDetails',
     mounted() {
-      if(!this.$store.state.user){
+      if(!this.$store.state.user._id){
         router.push({name: 'Auth'})
       }
       this.$store.dispatch('getPlaylist', this.$route.params.id)
+      this.player = null;
+      this.isPlaying = {};
     },
     components: {
       draggable
@@ -116,4 +120,15 @@
 </script>
 
 <style>
+  .songs {
+    margin: 0 2vh;
+  }
+  .songs-box {
+    background-color: #333399;
+    margin: 3vh;
+    color: white;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px #14143b;
+  }
 </style>
