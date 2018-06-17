@@ -227,10 +227,10 @@
   .playImg {
     width: 100%;
     margin: auto;
-    opacity: 0.2;
+    opacity: 0.4;
   }
 
   .songImg:hover .playImg {
-    opacity: 0.8;
+    opacity: 0.9;
   }
 </style>

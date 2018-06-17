@@ -4,7 +4,7 @@
       <h2 style="color: white;">{{activeList.title}}</h2>
     </div>
     <div class="results row mt-4 d-flex justify-content-center" v-if="activeSong">
-      <div class="card col-md-4 col-xs-12 songs-box">
+      <div v-if="activeSong.trackId" class="card col-md-4 col-xs-12 songs-box">
         <a @click="togglePlay">
           <h4>{{activeSong.trackName}}</h4>
         </a>
@@ -30,13 +30,13 @@
             <i class="fas fa-play"></i>
           </a>
           <a @click="playSong(song)" v-if="song._id != activeSong._id">
-            <h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4>
+            <h4 class="songs">{{song.trackName}} - {{song.artistName}}</h4>
           </a>
           <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true">
-            <h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4>
+            <h4 class="songs">{{song.trackName}} - {{song.artistName}}</h4>
           </a>
           <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false">
-            <h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4>
+            <h4 class="songs">{{song.trackName}} - {{song.artistName}}</h4>
           </a>
           <a class="btn remove play" @click="removeSong(song)">
             <i class="fas fa-trash-alt"></i>
@@ -171,10 +171,10 @@
   .playImg {
     width: 100%;
     margin: auto;
-    opacity: 0.2;
+    opacity: 0.4;
   }
 
   .songImg:hover .playImg {
-    opacity: 0.8;
+    opacity: 0.9;
   }
 </style>
