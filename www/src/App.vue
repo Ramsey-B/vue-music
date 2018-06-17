@@ -8,10 +8,15 @@
           Playlists
         </router-link>
       </div>
-      <a class="navbar-brand" @click="login" v-if="!(user._id)">Sign up/Login</a>
-      <div v-if="user._id" class="d-flex flex-column">
-        <a class="navbar-brand">User: {{user.displayName}}</a>
-        <a class="navbar-brand" @click="signOut">Sign out</a>
+      <div class="page-title">
+        <h1>PlayTunes</h1>
+      </div>
+      <div>
+        <a class="navbar-brand" @click="login" v-if="!(user._id)">Sign up/Login</a>
+        <div v-if="user._id" class="d-flex flex-column">
+          <a class="navbar-brand">User: {{user.displayName}}</a>
+          <a class="navbar-brand" @click="signOut">Sign out</a>
+        </div>
       </div>
     </nav>
     <router-view/>
@@ -26,8 +31,8 @@
         console.log(this.$store.state.user, 'app user')
         return this.$store.state.user
       }
-  },
-  methods: {
+    },
+    methods: {
       getPosts() {
         this.$store.dispatch('getPlaylists')
         this.$router.push('playlists')
@@ -48,8 +53,8 @@
       signOut() {
         this.$store.dispatch('signOut')
       }
-  },
-    }
+    },
+  }
 </script>
 
 <style>
@@ -62,12 +67,15 @@
     /* The image used */
     background-image: url("assets/forrest.jpg");
     min-height: 500vh;
-    /* Set a specific height */ 
-
+    /* Set a specific height */
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .play-title {
+    margin-left: 100vh;
   }
 </style>

@@ -2,10 +2,12 @@ var express = require('express')
 var bp = require('body-parser')
 var app = express()
 var cors = require('cors')
-var port = 3000
+var port = process.env.PORT || 3000
 
-//edit stuff
-var whitelist = ['http://localhost:8080'];
+
+app.use(express.static(__dirname + "/../www/dist"))
+
+var whitelist = ['http://localhost:8080', 'https://ramsey-playtunes.herokuapp.com'];
 var corsOptions = {
 	origin: function (origin, callback) {
 		var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
@@ -13,6 +15,7 @@ var corsOptions = {
 	},
 	credentials: true
 };
+
 app.use(cors(corsOptions))
 
 require('./db/mlab-config')

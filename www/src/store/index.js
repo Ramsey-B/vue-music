@@ -2,19 +2,21 @@ import vue from 'vue'
 import vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
-
+var production = !window.location.host.includes('localhost');
+var baseUrl = production ? '//ramsey-playtunes.herokuapp.com/' : '//localhost:3000/';
 
 vue.use(vuex)
+
+var server = axios.create({
+  baseURL: baseUrl,
+  timeout: 3000,
+  withCredentials: true
+})
+
 //itunes
 var itunes = axios.create({
   baseURL: 'https://itunes.apple.com/search?term=',
   timeout: 3000
-})
-
-var server = axios.create({
-  baseURL: 'http://localhost:3000',
-  timeout: 3000,
-  withCredentials: true,
 })
 
 export default new vuex.Store({
