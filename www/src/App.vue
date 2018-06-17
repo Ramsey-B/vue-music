@@ -32,6 +32,11 @@
         return this.$store.state.user
       }
     },
+    mounted() {
+      if (!this.$store.state.user._id) {
+        router.push({ name: 'Auth' })
+      }
+    },
     created() {
       window.addEventListener('beforeunload', () => {
         if (this.$store.state.user.email == 'demo@demo.com') {
