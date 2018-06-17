@@ -14,8 +14,8 @@
         <h5>{{song.artistName}}</h5>
         <a @click="playSong(song)">
           <div :style="song.artworkUrl100" class="songImg" :id="song._id">
-            <img class="playImg" v-if="song.trackId != isPlaying.trackId" src="../assets/play-button-png-filename-play-button-png-237.png">
-            <img class="playImg" v-if="song.trackId == isPlaying.trackId" src="../assets/btn-pause_video.png" >
+            <img class="playImg" v-if="song.trackId != isPlaying.trackId" src="../assets/play.png">
+            <img class="playImg" v-if="song.trackId == isPlaying.trackId" src="../assets/pause.png" >
           </div>
         </a>
         <h6 class="mt-2">Price: {{song.trackPrice}}</h6>

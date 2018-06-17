@@ -34,7 +34,7 @@
     },
     mounted() {
       if (!this.$store.state.user._id) {
-        router.push({ name: 'Auth' })
+        this.$router.push({ name: 'Auth' })
       }
     },
     created() {

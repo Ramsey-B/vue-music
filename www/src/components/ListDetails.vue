@@ -11,8 +11,8 @@
         <h5>{{activeSong.artistName}}</h5>
         <a @click="togglePlay">
           <div :style="activeSong.artworkUrl100" class="songImg" :id="activeSong._id">
-            <img class="playImg" v-if="!isPlaying" src="../assets/play-button-png-filename-play-button-png-237.png">
-            <img class="playImg" v-if="isPlaying" src="../assets/btn-pause_video.png">
+            <img class="playImg" v-if="!isPlaying" src="../assets/play.png">
+            <img class="playImg" v-if="isPlaying" src="../assets/pause.png">
           </div>
         </a>
       </div>
