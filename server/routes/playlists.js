@@ -59,6 +59,7 @@ router.put('/playlist/:id', (req, res) => {
       res.status(200).send(list)
     })
     .catch(err => {
+      console.log(err)
       res.send(400).send({ message: "An error occured" })
     })
 })

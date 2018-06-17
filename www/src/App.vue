@@ -4,7 +4,7 @@
     <nav class="navbar navbar-light top-header" style="background: #333399; color: white;">
       <div>
         <a class="navbar-brand" @click="home">Home</a>
-        <router-link :to="{ name: 'Playlists'}" class="navbar-brand" v-if="user._id" @click="getPosts">
+        <router-link :to="{ name: 'Playlists'}" class="navbar-brand" style="color: white" v-if="user._id" @click="getPosts">
           Playlists
         </router-link>
       </div>

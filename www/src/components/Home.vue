@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <div class="search">
+    <div class="search mt-2">
       <form v-on:submit.prevent="search">
-        <input type="text" v-model="query">
-        <button type="submit">SEARCH</button>
+        <input type="text" style="background: black; color: white; opacity: 0.8;" v-model="query">
+        <button type="submit" class="btn btn-primary">SEARCH</button>
       </form>
     </div>
     <div class="results row d-flex justify-content-center">
@@ -13,9 +13,12 @@
         </a>
         <h5>{{song.artistName}}</h5>
         <a @click="playSong(song)">
-          <img class="play-img" :src="song.artworkUrl100">
+          <div :style="song.artworkUrl100" class="songImg" :id="song._id">
+            <img class="playImg" v-if="song.trackId != isPlaying.trackId" src="../assets/play-button-png-filename-play-button-png-237.png">
+            <img class="playImg" v-if="song.trackId == isPlaying.trackId" src="../assets/btn-pause_video.png" >
+          </div>
         </a>
-        <h6>Price: {{song.trackPrice}}</h6>
+        <h6 class="mt-2">Price: {{song.trackPrice}}</h6>
         <div>
           <a :href="song.trackViewUrl" target="_blank" class="btn btn-outline-success mt-2">Purchase</a>
           <div v-if="user" class="form-group">
@@ -23,7 +26,7 @@
               <span class="popuptext" :id="song.trackId">{{alert}}</span>
             </div>
             <div class="d-flex flex-row justify-content-center">
-              <select name="Playlists" class="form-control" style="background: #14143b; color: white; width: 30vh;" v-model="activeList">
+              <select name="Playlists" class="form-control" style="background: #14143b; color: white; max-width: 30vh;" v-model="activeList">
                 <option disabled>Select a Playlist</option>
                 <option v-for="playlist in playlists" :value="playlist">{{playlist.title}}</option>
               </select>
@@ -141,6 +144,14 @@
     padding: 2vh;
   }
 
+  .songImg {
+    height: 25vh;
+    width: 25vh;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: auto;
+  }
+
   .popup {
     position: relative;
     display: inline-block;
@@ -211,5 +222,15 @@
     to {
       opacity: 1;
     }
+  }
+
+  .playImg {
+    width: 100%;
+    margin: auto;
+    opacity: 0.2;
+  }
+
+  .songImg:hover .playImg {
+    opacity: 0.8;
   }
 </style>

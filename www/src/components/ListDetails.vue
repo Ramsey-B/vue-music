@@ -1,6 +1,8 @@
 <template>
   <div class="listDetails">
-    <h2>{{activeList.title}}</h2>
+    <div class="title">
+      <h2 style="color: white;">{{activeList.title}}</h2>
+    </div>
     <div class="results row mt-4 d-flex justify-content-center" v-if="activeSong">
       <div class="card col-md-4 col-xs-12 songs-box">
         <a @click="togglePlay">
@@ -8,20 +10,37 @@
         </a>
         <h5>{{activeSong.artistName}}</h5>
         <a @click="togglePlay">
-          <img class="play-img" :src="activeSong.artworkUrl100" width="200vh">
+          <div :style="activeSong.artworkUrl100" class="songImg" :id="activeSong._id">
+            <img class="playImg" v-if="!isPlaying" src="../assets/play-button-png-filename-play-button-png-237.png">
+            <img class="playImg" v-if="isPlaying" src="../assets/btn-pause_video.png">
+          </div>
         </a>
       </div>
     </div>
     <div class="row d-flex justify-content-center mt-4">
       <draggable v-model="songs">
         <div class="col-12 d-flex justify-content-row justify-content-center songs-box" :key="song._id" v-for="song in songs">
-          <a class="play" @click="playSong(song)" v-if="song._id != activeSong._id"><i class="fas fa-play"></i></a>
-          <a class="play" @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true"><i class="fas fa-pause"></i></a>
-          <a class="play" @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false"><i class="fas fa-play"></i></a>
-          <a @click="playSong(song)" v-if="song._id != activeSong._id"><h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4></a>
-          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true"><h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4></a>
-          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false"><h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4></a>
-          <a class="btn remove play" @click="removeSong(song)"><i class="fas fa-trash-alt"></i></a>
+          <a class="play" @click="playSong(song)" v-if="song._id != activeSong._id">
+            <i class="fas fa-play"></i>
+          </a>
+          <a class="play" @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true">
+            <i class="fas fa-pause"></i>
+          </a>
+          <a class="play" @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false">
+            <i class="fas fa-play"></i>
+          </a>
+          <a @click="playSong(song)" v-if="song._id != activeSong._id">
+            <h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4>
+          </a>
+          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == true">
+            <h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4>
+          </a>
+          <a @click="togglePlay" v-if="song._id == activeSong._id && isPlaying == false">
+            <h4 class="songs">{{song.trackName}}-{{song.artistName}}</h4>
+          </a>
+          <a class="btn remove play" @click="removeSong(song)">
+            <i class="fas fa-trash-alt"></i>
+          </a>
         </div>
       </draggable>
     </div>
@@ -34,8 +53,8 @@
   export default {
     name: 'listDetails',
     mounted() {
-      if(!this.$store.state.user._id){
-        router.push({name: 'Auth'})
+      if (!this.$store.state.user._id) {
+        router.push({ name: 'Auth' })
       }
       this.$store.dispatch('getPlaylist', this.$route.params.id)
       this.player = null;
@@ -57,10 +76,10 @@
         return this.$store.state.activeList
       },
       songs: {
-        get: function() {
+        get: function () {
           return this.$store.state.activeList.songs
         },
-        set: function(songs) {
+        set: function (songs) {
           this.editList(songs)
         }
       }
@@ -74,24 +93,24 @@
           html5: true,
           onend: function () {
             if (index < songs.length - 1) {
-                index++
-                var song = songs[index]
-                cb(song)
-              }
+              index++
+              var song = songs[index]
+              cb(song)
+            }
             else {
               var song = songs[0]
-                cb(song)
+              cb(song)
             }
           }
         });
       },
       playSong(song) {
-        if(this.player) {
+        if (this.player) {
           this.player.stop()
         }
         this.isPlaying = true
         this.activeSong = song
-        this.songsIndex = this.songs.findIndex(item => {return item._id == song._id})
+        this.songsIndex = this.songs.findIndex(item => { return item._id == song._id })
         this.initPlayer(this.songs, this.songsIndex, this.playSong)
       },
       editList(songs) {
@@ -123,6 +142,7 @@
   .songs {
     margin: 0 2vh;
   }
+
   .songs-box {
     background-color: #333399;
     margin: 3vh;
@@ -130,5 +150,31 @@
     border: 1px solid;
     padding: 10px;
     box-shadow: 5px 10px #14143b;
+  }
+
+  .title {
+    background-color: black;
+    opacity: 0.8;
+    display: inline-block;
+    padding: 1vh 10vh;
+    margin-top: 5vh;
+  }
+
+  .songImg {
+    height: 25vh;
+    width: 25vh;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: auto;
+  }
+
+  .playImg {
+    width: 100%;
+    margin: auto;
+    opacity: 0.2;
+  }
+
+  .songImg:hover .playImg {
+    opacity: 0.8;
   }
 </style>

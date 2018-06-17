@@ -63,7 +63,9 @@ export default new vuex.Store({
     getSongs({dispatch, commit}, payload) {
       itunes.get(''+payload)
       .then(res => {
-        console.log(res)
+        res.data.results.forEach((song) => {
+          song.artworkUrl100 = 'background-image: url(' + song.artworkUrl100 + ');'
+        });
         commit('setSongs', res.data.results)
       })
     },
