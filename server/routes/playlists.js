@@ -89,6 +89,21 @@ router.delete('/playlist/:id', (req, res) => {
     })
 })
 
+router.delete('/end-demo/:id', (req, res) => {
+  Songs.deleteMany({ "userId": req.params.id })
+    .then(data => {
+      req.session.destroy(() => {
+        res.send({
+          message: 'You have successfully been logged out. Please come back soon!'
+        })
+    
+      })
+    })
+    .catch(err => {
+      res.status(400).send(err)
+    })
+})
+
 module.exports = {
   router
 }
