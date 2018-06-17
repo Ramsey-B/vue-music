@@ -32,6 +32,13 @@
         return this.$store.state.user
       }
     },
+    created() {
+      window.addEventListener('beforeunload', () => {
+        if (this.$store.state.user.email == 'demo@demo.com') {
+          this.$store.dispatch('endDemo')
+        }
+      })
+    },
     methods: {
       getPosts() {
         this.$store.dispatch('getPlaylists')

@@ -118,6 +118,22 @@ export default new vuex.Store({
         .catch(res=>{
           console.log(res.data)
         })
+    },
+    startDemo({ dispatch, commit }) {
+      var demoUser = {
+        email: 'demo@demo.com',
+        password: 'demo'
+      }
+      dispatch('login', demoUser)
+    },
+    endDemo({ dispatch, commit, state }) {
+      server.delete('/end-demo/' + state.user._id)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 })

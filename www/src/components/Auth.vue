@@ -1,11 +1,11 @@
 <template>
-  <div class="">
+  <div class="auth">
     <div class="login" v-if="showLogin">
       <h1>Login</h1>
       <form v-on:submit.prevent="login" class="form">
         <input class="input" type="email" name="email" placeholder=" email" id="email" v-model="user.email">
-        <input class="input" type="text" name="email" placeholder=" password" id="name" v-model="user.password">
-        <button type="submit">Login</button>
+        <input class="input" type="password" name="password" placeholder=" password" id="name" v-model="user.password">
+        <button class="btn btn-primary" type="submit">Login</button>
       </form>
       <p class="user">Not a user ?
         <em @click="toggle">Register</em>
@@ -16,13 +16,14 @@
       <form v-on:submit.prevent="register">
         <input class="input" type="email" name="email" placeholder=" email" id="email" v-model="user.email">
         <input class="input" type="text" name="name" placeholder=" Name" id="name" v-model="user.displayName">
-        <input class="input" type="text" name="email" placeholder=" password" id="name" v-model="user.password">
-        <button type="submit">Register</button>
+        <input class="input" type="password" name="password" placeholder=" password" id="name" v-model="user.password">
+        <button class="btn btn-primary" type="submit">Register</button>
       </form>
       <p>Already a user?
         <em @click="toggle">Login</em>
       </p>
     </div>
+    <p>Or start a <button class="btn btn-success" @click="demo">Demo</button></p>
   </div>
 </template>
 
@@ -52,6 +53,9 @@
       },
       toggle() {
         this.showLogin = !this.showLogin
+      },
+      demo() {
+        this.$store.dispatch('startDemo')
       }
     }
   }
@@ -59,6 +63,12 @@
 </script>
 
 <style>
-
-
+  .auth {
+    background-color: black;
+    opacity: 0.8;
+    display: inline-block;
+    padding: 1vh 10vh;
+    margin-top: 5vh;
+    color: white;
+  }
 </style>
